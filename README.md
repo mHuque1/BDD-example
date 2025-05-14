@@ -82,6 +82,27 @@ setWorldConstructor(CustomWorld);
 export type { CustomWorld };
 ```
 
+**Ejemplo:**
+
+Para nuestro ejemplo utilizaremos el siguiente mundo:
+
+```typescript
+import { setWorldConstructor, World } from "@cucumber/cucumber";
+
+class CustomWorld extends World {
+  currentPage: string = "";
+  username?: string;
+  password?: string;
+  loggedIn: boolean = false;
+  registeredUsers: Record<string, string> = {};
+  registerResult?: string;
+  validationErrorMessage?: string;
+}
+
+setWorldConstructor(CustomWorld);
+export type { CustomWorld };
+```
+
 ## Creacion de casos de uso
 
 Para crear un caso de uso debemos crear un archivo .feature y dentro del mismo especificar en formato gherkin el scenario: 
@@ -92,7 +113,7 @@ touch <nombre de la feature>.feature
 
 **Ejemplo:**
 
-Creación de login.feature:
+Creación de *login.feature*:
 
 ```bash
 cd features
@@ -184,6 +205,14 @@ Then('the user should see the dashboard', function (this: CustomWorld) {
   assert.strictEqual(this.loggedIn, true);
   assert.strictEqual(this.currentPage, 'dashboard');
 });
+```
+
+## Verificamos que se cumplan las condiciones
+
+Para verificar que especificamos correctamente y que se cumplen las condiciones corremos:
+
+```bash
+npm test
 ```
 
 # Instalación de un proyecto existente
